@@ -2,6 +2,7 @@
 % Mandelbrot boundary: bisection → polyfit → arc length
 clear; clc;
 
+%% PART 1: Use the bisection algorithm to approximate the boundary
 % Define the range of x values and initialize variables
 xs = linspace(-2, 1, 1000);
 s = 0.0; e = 2.0; % start and end points for bisection
@@ -19,6 +20,7 @@ for k = 1:numel(xs)
     end
 end
 
+%% PART 2: Polynomial approximation of the boundary
 % Polynomial fit for valid y values
 valid = ~isnan(ys); % identify valid y values
 p = polyfit(xs(valid), ys(valid), 15); % fit a polynomial of degree 15
@@ -30,6 +32,7 @@ plot(xs(valid), ys(valid), '.', xs(valid), yfit, 'LineWidth',1.5);
 grid on; xlabel('x'); ylabel('y');
 title('Mandelbrot boundary and degree-15 polynomial fit');
 
-% Calculate the length of the polynomial curve
+%% PART 3: Integrate polynomial to find curve length
 L = poly_len(p, min(xs(valid)), max(xs(valid)));
 fprintf('Curve length: %.8f\n', L);
+
